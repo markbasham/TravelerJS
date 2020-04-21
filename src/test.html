@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>JavaScript - read JSON from URL</title>
+</head>
+
+<body>
+Test Text
+<div id="content"></div>
+
+<script>
+function httpGet(theUrl) {
+  var xmlHttp = null;
+  xmlHttp = new XMLHttpRequest();
+  xmlHttp.open( "GET", theUrl, false );
+  xmlHttp.send( null );
+  return xmlHttp.responseText;
+}
+
+var local = '{"RandomOposition": {"R11":"Low Tech - Animals","R12":"Low Tech - Large Animals"}}';
+var data = '<object id=test type="text/html" data="data.json"></object>';
+var something = httpGet("data.json")
+var obj = JSON.parse(something);
+var index = 'R1' + Math.floor(Math.random() * 6 + 1)
+//document.getElementById("content").innerHTML=something;
+document.getElementById("content").innerHTML=obj.RandomOposition[index]
+</script>
+
+<button type="button"
+onclick='var index = "R1" + Math.floor(Math.random() * 6 + 1);document.getElementById("content").innerHTML=obj.RandomOposition[index]'>
+New Random Encounter.</button>
+<p id="demo"></p>
+
+
+</body>
+</html>
