@@ -35,7 +35,7 @@ function httpGet(theUrl) {
 
 var local = '{"RandomOposition": {"R11":"Low Tech - Animals","R12":"Low Tech - Large Animals"}}';
 var data = '<object id=test type="text/html" data="data.json"></object>';
-var something = httpGet("data.json")
+var something = httpGet("../json/data.json")
 var obj = JSON.parse(something);
 var index = ('R' + Math.floor(Math.random() * 6 + 1))+ Math.floor(Math.random() * 6 + 1)
 //document.getElementById("content").innerHTML=something;
