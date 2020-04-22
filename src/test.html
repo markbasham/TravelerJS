@@ -5,8 +5,24 @@
 </head>
 
 <body>
-Test Text
-<div id="content"></div>
+
+<h1>Planet info</h1>
+
+<table style="width:100%">
+  <tr>
+    <th>Information</th>
+    <th>Content</th>
+    <th></th>
+  </tr>
+  <tr>
+    <th>Random Opposition</th>
+    <th><div id="content"></div></th>
+    <th><button type="button"
+        onclick='var index = ("R" + Math.floor(Math.random() * 6 + 1)) + Math.floor(Math.random() * 6 + 1);document.getElementById("content").innerHTML=obj.RandomOposition[index]'>
+        Refresh</button>
+    </th>
+  </tr>
+</table>
 
 <script>
 function httpGet(theUrl) {
@@ -21,15 +37,10 @@ var local = '{"RandomOposition": {"R11":"Low Tech - Animals","R12":"Low Tech - L
 var data = '<object id=test type="text/html" data="data.json"></object>';
 var something = httpGet("data.json")
 var obj = JSON.parse(something);
-var index = 'R1' + Math.floor(Math.random() * 6 + 1)
+var index = ('R' + Math.floor(Math.random() * 6 + 1))+ Math.floor(Math.random() * 6 + 1)
 //document.getElementById("content").innerHTML=something;
 document.getElementById("content").innerHTML=obj.RandomOposition[index]
 </script>
-
-<button type="button"
-onclick='var index = "R1" + Math.floor(Math.random() * 6 + 1);document.getElementById("content").innerHTML=obj.RandomOposition[index]'>
-New Random Encounter.</button>
-<p id="demo"></p>
 
 
 </body>
