@@ -6,7 +6,16 @@
 
 <body>
 
-<h1>Planet info</h1>
+<h1 id=title></h1>
+
+<script>
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const world_name = urlParams.get('name');
+const world_code = urlParams.get('code');
+document.getElementById("title").innerHTML=world_name + " : " + world_code;
+</script>
+
 
 <table style="width:100%">
   <tr>
