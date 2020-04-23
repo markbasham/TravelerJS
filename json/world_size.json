@@ -1,0 +1,15 @@
+{
+  "WorldSize": {
+    "D0": {"WorldSize":"800km",    "Examples":"Asteroid, orbital complex", "SurfaceGravity":"Negligible"},
+    "D1": {"WorldSize":"1,600km",  "Examples":"",                          "SurfaceGravity":"0.05g"},
+    "D2": {"WorldSize":"3,200km",  "Examples":"Triton, Luna, Europa",      "SurfaceGravity":"0.15g"},
+    "D3": {"WorldSize":"4,800km",  "Examples":"Mercury, Ganymede",         "SurfaceGravity":"0.25g"},
+    "D4": {"WorldSize":"6,400km",  "Examples":"Mars",                      "SurfaceGravity":"0.35g"},
+    "D5": {"WorldSize":"8,000km",  "Examples":"",                          "SurfaceGravity":"0.45g"},
+    "D6": {"WorldSize":"9,600km",  "Examples":"",                          "SurfaceGravity":"0.7g"},
+    "D7": {"WorldSize":"11,200km", "Examples":"",                          "SurfaceGravity":"0.9g"},
+    "D8": {"WorldSize":"12,800km", "Examples":"Earth",                     "SurfaceGravity":"1.0g"},
+    "D9": {"WorldSize":"14,400km", "Examples":"",                          "SurfaceGravity":"1.25g"},
+    "DA": {"WorldSize":"16,000km", "Examples":"",                          "SurfaceGravity":"1.4g"}
+  }
+}
