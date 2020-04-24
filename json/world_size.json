@@ -1,5 +1,6 @@
 {
-  "WorldSize": {
+  "select":"digit",
+  "data": {
     "D0": {"WorldSize":"800km",    "Examples":"Asteroid, orbital complex", "SurfaceGravity":"Negligible"},
     "D1": {"WorldSize":"1,600km",  "Examples":"",                          "SurfaceGravity":"0.05g"},
     "D2": {"WorldSize":"3,200km",  "Examples":"Triton, Luna, Europa",      "SurfaceGravity":"0.15g"},

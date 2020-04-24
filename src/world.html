@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>JavaScript - read JSON from URL</title>
+<title>Traveller World display</title>
 </head>
 
 <body>
@@ -29,20 +29,14 @@ document.getElementById("title").innerHTML=world_name + " : " + world_code;
     <th>Random Opposition</th>
     <th><div id="content"></div></th>
     <th><button type="button"
-        onclick='var index = ("R" + Math.floor(Math.random() * 6 + 1)) + Math.floor(Math.random() * 6 + 1);document.getElementById("content").innerHTML=obj.RandomOposition[index]'>
+        onclick="document.getElementById('content').innerHTML=get_value_from_table('random_opposition')">
         Refresh</button>
     </th>
   </tr>
 </table>
 
 <script>
-var local = '{"RandomOposition": {"R11":"Low Tech - Animals","R12":"Low Tech - Large Animals"}}';
-var data = '<object id=test type="text/html" data="data.json"></object>';
-var something = httpGet("../json/data.json")
-var obj = JSON.parse(something);
-var index = ('R' + Math.floor(Math.random() * 6 + 1))+ Math.floor(Math.random() * 6 + 1)
-//document.getElementById("content").innerHTML=something;
-document.getElementById("content").innerHTML=obj.RandomOposition[index]
+document.getElementById('content').innerHTML=get_value_from_table('random_opposition');
 </script>
 
 
