@@ -16,6 +16,7 @@ const urlParams = new URLSearchParams(queryString);
 const world_name = urlParams.get('name');
 const world_code = urlParams.get('code');
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
+var world = get_world_data(world_code);
 </script>
 
 
@@ -25,20 +26,16 @@ document.getElementById("title").innerHTML=world_name + " : " + world_code;
     <th style="width:60%">Content</th>
     <th style="width:15%"></th>
   </tr>
+  <script>world_data_to_table("World Size", world.size)</script>
   <tr>
     <th>Random Opposition</th>
-    <th><div id="content"></div></th>
+    <th><div id="content"><script>document.write(get_value_from_table('random_opposition'))</script></div></th>
     <th><button type="button"
         onclick="document.getElementById('content').innerHTML=get_value_from_table('random_opposition')">
         Refresh</button>
     </th>
   </tr>
 </table>
-
-<script>
-document.getElementById('content').innerHTML=get_value_from_table('random_opposition');
-</script>
-
 
 </body>
 </html>

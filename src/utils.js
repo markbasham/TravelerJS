@@ -17,3 +17,17 @@ function get_value_from_table(table, lookup='0') {
   }
   return data.data[index]
 }
+
+function get_world_data(code) {
+  var world = new Object();
+  world.size = get_value_from_table('world_size', code.substring(1, 2));
+  return world;
+}
+
+function world_data_to_table(name, data) {
+  var title = name;
+  for (const property in data) {
+    document.write(`<tr><th>${title}</th><th>${property}</th><th>${data[property]}</th><tr>`);
+    title = "";
+  }
+}
