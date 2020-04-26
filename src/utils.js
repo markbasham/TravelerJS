@@ -23,6 +23,8 @@ function get_world_data(code) {
   world.size = get_value_from_table('world_size', code.substring(1, 2));
   world.atmosphere = get_value_from_table('world_atmosphere', code.substring(2, 3));
   world.hydrographics = get_value_from_table('world_hydrographics', code.substring(3, 4));
+  world.population = get_value_from_table('world_population', code.substring(4, 5));
+  world.government = get_value_from_table('world_government', code.substring(5, 6));
   return world;
 }
 

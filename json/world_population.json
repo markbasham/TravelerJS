@@ -1,0 +1,18 @@
+{
+  "select":"digit",
+  "data": {
+    "D0": {"Population":"None",                  "Range":"0",                  "Description":""},
+    "D1": {"Population":"Few",                   "Range":"1+",                 "Description":"A tiny farmstead or a single family"},
+    "D2": {"Population":"Hundreds",              "Range":"100+",               "Description":"A village"},
+    "D3": {"Population":"Thousands",             "Range":"1,000+",             "Description":""},
+    "D4": {"Population":"Tens of Thousands",     "Range":"10,000+",            "Description":"Small Town"},
+    "D5": {"Population":"Hundreds of Thousands", "Range":"100,000+",           "Description":"Average City"},
+    "D6": {"Population":"Millions",              "Range":"1,000,000+",         "Description":""},
+    "D7": {"Population":"Tens of Millions",      "Range":"10,000,000+",        "Description":"Large City"},
+    "D8": {"Population":"Hundreds of Millions",  "Range":"100,000,000+",       "Description":""},
+    "D9": {"Population":"Billions",              "Range":"1,000,000,000+",     "Description":"Present day Earth"},
+    "DA": {"Population":"Tens of Billions",      "Range":"10,000,000,000+",    "Description":""},
+    "DB": {"Population":"Hundreds of Billions",  "Range":"100,000,000,000+",   "Description":"Incredibly crowded world"},
+    "DC": {"Population":"Trillions",             "Range":"1,000,000,000,000+", "Description":"World-city"}
+  }
+}
