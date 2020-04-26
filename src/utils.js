@@ -21,6 +21,8 @@ function get_value_from_table(table, lookup='0') {
 function get_world_data(code) {
   var world = new Object();
   world.size = get_value_from_table('world_size', code.substring(1, 2));
+  world.atmosphere = get_value_from_table('world_atmosphere', code.substring(2, 3));
+  world.hydrographics = get_value_from_table('world_hydrographics', code.substring(3, 4));
   return world;
 }
 

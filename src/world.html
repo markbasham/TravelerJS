@@ -23,10 +23,12 @@ var world = get_world_data(world_code);
 <table style="width:100%;text-align:left">
   <tr>
     <th style="width:25%">Information</th>
-    <th style="width:60%">Content</th>
-    <th style="width:15%"></th>
+    <th style="width:50%">Content</th>
+    <th style="width:25%"></th>
   </tr>
   <script>world_data_to_table("World Size", world.size)</script>
+  <script>world_data_to_table("World Atmosphere", world.atmosphere)</script>
+  <script>world_data_to_table("World Hydrographics", world.hydrographics)</script>
   <tr>
     <th>Random Opposition</th>
     <th><div id="content"><script>document.write(get_value_from_table('random_opposition'))</script></div></th>

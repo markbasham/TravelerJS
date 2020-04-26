@@ -1,0 +1,16 @@
+{
+  "select":"digit",
+  "data": {
+    "D0": {"Hydrographic Percentage":"0%-5%",    "Description":"Desert world"},
+    "D1": {"Hydrographic Percentage":"6%-15%",   "Description":"Dry world"},
+    "D2": {"Hydrographic Percentage":"16%-25%",  "Description":"A few small seas"},
+    "D3": {"Hydrographic Percentage":"26%-35%",  "Description":"Small seas and oceans"},
+    "D4": {"Hydrographic Percentage":"36%-45%",  "Description":"Wet world"},
+    "D5": {"Hydrographic Percentage":"46%-55%",  "Description":"Large oceans"},
+    "D6": {"Hydrographic Percentage":"56%-65%",  "Description":""},
+    "D7": {"Hydrographic Percentage":"66%-75%",  "Description":"Earth like world"},
+    "D8": {"Hydrographic Percentage":"76%-85%",  "Description":"Water world"},
+    "D9": {"Hydrographic Percentage":"86%-95%",  "Description":"Only a few small islands and archipelagos"},
+    "DA": {"Hydrographic Percentage":"96%-100%", "Description":"Almost entirely water"}
+  }
+}

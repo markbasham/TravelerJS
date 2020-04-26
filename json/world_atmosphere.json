@@ -1,0 +1,21 @@
+{
+  "select":"digit",
+  "data": {
+    "D0": {"Atmosphere":"None",               "Examples":"Moon",  "Pressure":"0.00",          "Survival Gear Required":"Vacc Suit"},
+    "D1": {"Atmosphere":"Trace",              "Examples":"Mars",  "Pressure":"0.001 to 0.09", "Survival Gear Required":"Vacc Suit"},
+    "D2": {"Atmosphere":"Very Thin, Tainted", "Examples":"",      "Pressure":"0.1 to 0.42",   "Survival Gear Required":"Respirator, Filter"},
+    "D3": {"Atmosphere":"Very Thin",          "Examples":"",      "Pressure":"0.1 to 0.42",   "Survival Gear Required":"Respirator"},
+    "D4": {"Atmosphere":"Thin, Tainted",      "Examples":"",      "Pressure":"0.43 to 0.7",   "Survival Gear Required":"Filter"},
+    "D5": {"Atmosphere":"Thin",               "Examples":"",      "Pressure":"0.43 to 0.7",   "Survival Gear Required":""},
+    "D6": {"Atmosphere":"Standard",           "Examples":"Earth", "Pressure":"0.71 to 1.49",  "Survival Gear Required":""},
+    "D7": {"Atmosphere":"Standard, Tainted",  "Examples":"",      "Pressure":"0.71 to 1.49",  "Survival Gear Required":"Filter"},
+    "D8": {"Atmosphere":"Dense",              "Examples":"",      "Pressure":"1.5 to 2.49",   "Survival Gear Required":""},
+    "D9": {"Atmosphere":"Dense, Tainted",     "Examples":"",      "Pressure":"1.5 to 2.49",   "Survival Gear Required":"Filter"},
+    "DA": {"Atmosphere":"Exotic",             "Examples":"",      "Pressure":"Varies",        "Survival Gear Required":"Air Supply"},
+    "DB": {"Atmosphere":"Corrosive",          "Examples":"Venus", "Pressure":"Varies",        "Survival Gear Required":"Vacc Suit"},
+    "DC": {"Atmosphere":"Insidious",          "Examples":"",      "Pressure":"Varies",        "Survival Gear Required":"Vacc Suit"},
+    "DD": {"Atmosphere":"Dense, High",        "Examples":"",      "Pressure":"2.5+",          "Survival Gear Required":""},
+    "DE": {"Atmosphere":"Thin, Low",          "Examples":"",      "Pressure":"0.5 or less",   "Survival Gear Required":""},
+    "DF": {"Atmosphere":"Unusual",            "Examples":"",      "Pressure":"Varies",        "Survival Gear Required":"Varies"}
+  }
+}
