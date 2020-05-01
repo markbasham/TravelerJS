@@ -1,0 +1,29 @@
+{
+  "select":"digit",
+  "data": {
+    "DA": {"Quality":"Excellent",
+           "Berthing cost":"1d6 x 1000",
+           "Fuel":"Refined",
+           "Facilities":"Shipyard(All), Repair"},
+    "DB": {"Quality":"Good",
+           "Berthing cost":"1d6 x 500",
+           "Fuel":"Refined",
+           "Facilities":"Shipyard(Spacecraft), Repair"},
+	"DC": {"Quality":"Routine",
+           "Berthing cost":"1d6 x 100",
+           "Fuel":"Unrefined",
+           "Facilities":"Shipyard(Small Craft), Repair"},
+    "DD": {"Quality":"Poor",
+           "Berthing cost":"1d6 x 10",
+           "Fuel":"Unrefined",
+           "Facilities":"Limited Repair"},
+	"DE": {"Quality":"Frontier",
+           "Berthing cost":"0",
+           "Fuel":"None",
+           "Facilities":"None"},
+	"DX": {"Quality":"No Starport",
+           "Berthing cost":"0",
+           "Fuel":"None",
+           "Facilities":"None"}
+  }
+}

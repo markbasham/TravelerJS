@@ -34,6 +34,7 @@ function trim_illegal_posessions(world) {
 
 function get_world_data(code) {
   var world = new Object();
+  world.starport = get_value_from_table('world_starport', code.substring(0, 1));
   world.size = get_value_from_table('world_size', code.substring(1, 2));
   world.atmosphere = get_value_from_table('world_atmosphere', code.substring(2, 3));
   world.hydrographics = get_value_from_table('world_hydrographics', code.substring(3, 4));
