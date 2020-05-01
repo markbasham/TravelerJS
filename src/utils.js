@@ -41,6 +41,7 @@ function get_world_data(code) {
   world.population = get_value_from_table('world_population', code.substring(4, 5));
   world.government = get_value_from_table('world_government', code.substring(5, 6));
   world.law_level = get_value_from_table('world_law_level', code.substring(6, 7));
+  world.tech_level = get_value_from_table('world_tech_level', code.substring(8, 9));
   trim_illegal_posessions(world);
   return world;
 }
