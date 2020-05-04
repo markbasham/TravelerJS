@@ -46,10 +46,24 @@ function get_world_data(code) {
   return world;
 }
 
-function world_data_to_table(name, data) {
+function world_data_to_rows(name, data) {
   var title = name;
   for (const property in data) {
-    document.write(`<tr><th>${title}</th><th>${property}</th><th>${data[property]}</th><tr>`);
+    document.write(`<tr><th>${title}</th><th>${property}</th><th>${data[property]}</th></tr>`);
     title = "";
   }
 }
+
+function world_data_to_table(world) {
+  document.write("<table><tr><th style='width:25%'>Information</th><th style='width:40%'>Content</th><th style='width:35%'></th></tr>");
+  world_data_to_rows("World Starport", world.starport);
+  world_data_to_rows("World Size", world.size);
+  world_data_to_rows("World Atmosphere", world.atmosphere);
+  world_data_to_rows("World Hydrographics", world.hydrographics);
+  world_data_to_rows("World Population", world.population);
+  world_data_to_rows("World Government", world.government);
+  world_data_to_rows("World Illegal Possessions", world.law_level);
+  world_data_to_rows("World Tech Level", world.tech_level);
+  document.write("</table>");
+}
+	

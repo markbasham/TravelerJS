@@ -21,20 +21,16 @@ var world = get_world_data(world_code);
 </script>
 
 
+<script>
+world_data_to_table(world);
+</script>
+
 <table>
   <tr>
     <th style="width:25%">Information</th>
-    <th style="width:40%">Content</th>
-    <th style="width:35%"></th>
+    <th style="width:60%">Content</th>
+    <th style="width:15%"></th>
   </tr>
-  <script>world_data_to_table("World Starport", world.starport)</script>
-  <script>world_data_to_table("World Size", world.size)</script>
-  <script>world_data_to_table("World Atmosphere", world.atmosphere)</script>
-  <script>world_data_to_table("World Hydrographics", world.hydrographics)</script>
-  <script>world_data_to_table("World Population", world.population)</script>
-  <script>world_data_to_table("World Government", world.government)</script>
-  <script>world_data_to_table("World Illegal Possessions", world.law_level)</script>
-  <script>world_data_to_table("World Tech Level", world.tech_level)</script>
   <tr>
     <th>Random Opposition</th>
     <th><div id="content"><script>document.write(get_value_from_table('random_opposition'))</script></div></th>
