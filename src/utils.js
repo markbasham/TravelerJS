@@ -31,7 +31,6 @@ function trim_illegal_posessions(world) {
   }
 }
 
-
 function get_world_data(code) {
   var world = new Object();
   world.starport = get_value_from_table('world_starport', code.substring(0, 1));
@@ -67,3 +66,54 @@ function world_data_to_table(world) {
   document.write("</table>");
 }
 	
+function create_empty_jump_map(jump_drive) {
+  const size = (jump_drive*2)+1;
+  const table_width = 64*size;
+  document.write(`<table border='0' cellspacing='0' cellpadding='0' width='${table_width}px' valign='top'>`);
+  
+  var full = (jump_drive%2)==0;
+  document.write("<tr height='32px'>");
+  for (j = 0; j < size; j++) {
+	if (full) {
+      document.write("<td width='64px' rowspan='2' background='../images/Empty.jpg'></td>");
+	} else {
+	  document.write("<td width='64px' rowspan='1' background='../images/Top.jpg'></td>");
+	}
+	full = !full;
+  }
+  document.write("</tr>");
+  
+  const first_row_count = (Math.floor((jump_drive-1)/2)+1)*2;
+  const second_row_count = Math.floor(jump_drive/2)*2+1;
+  for (i = 0; i < size-1; i++) {
+	  
+	document.write("<tr height='32px'>");
+	for (j = 0; j < first_row_count; j++) {
+	  document.write("<td width='64px' rowspan='2' background='../images/Empty.jpg'></td>");
+	}
+	document.write("</tr>");
+	
+    document.write("<tr height='32px'>");
+	for (j = 0; j < second_row_count; j++) {
+	  document.write("<td width='64px' rowspan='2' background='../images/Empty.jpg'></td>");
+	}
+	document.write("</tr>");
+	
+  }
+
+  var full = (jump_drive%2)==0;
+  document.write("<tr height='32px'>");
+  for (j = 0; j < size; j++) {
+	if (!full) {
+	  document.write("<td width='64px' rowspan='1' background='../images/Bottom.jpg'></td>");
+	}
+	full = !full;
+  }
+  document.write("</tr>");
+  document.write("</table>");
+}
+
+
+
+
+
