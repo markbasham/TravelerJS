@@ -18,6 +18,12 @@ function get_value_from_table(table, lookup='0') {
   return data.data[index]
 }
 
+function get_sector(sector) {
+  var data_string = httpGet("../json/"+sector+".json")
+  var data = JSON.parse(data_string);
+  return data
+}
+
 function trim_illegal_posessions(world) {
   if (world.government["Common Contraband"].includes("Varies")) {
     // List everything just in case
@@ -66,18 +72,24 @@ function world_data_to_table(world) {
   document.write("</table>");
 }
 	
-function create_empty_jump_map(jump_drive) {
+function create_empty_jump_map(jump_drive, world_x, world_y) {
+  const sector = get_sector('spinward_marches');
+  document.write(Object.keys(sector));
+  document.write(Object.keys(sector[1][1]));
   const size = (jump_drive*2)+1;
   const table_width = 64*size;
-  document.write(`<table border='0' cellspacing='0' cellpadding='0' width='${table_width}px' valign='top'>`);
+  document.write(`<table border='0' cellspacing='0' cellpadding='0' width='${table_width}px' valign='top' style="color:#ffffff">`);
   
   var full = (jump_drive%2)==0;
+  var i = 0;
   document.write("<tr height='32px'>");
   for (j = 0; j < size; j++) {
+	var x = j-1+world_x;
+	var y = i-1+world_y;
 	if (full) {
-      document.write("<td width='64px' rowspan='2' background='../images/Empty.jpg'></td>");
+      document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
 	} else {
-	  document.write("<td width='64px' rowspan='1' background='../images/Top.jpg'></td>");
+	  document.write(`<td width='64px' rowspan='1' background='../images/Top.jpg'></td>`);
 	}
 	full = !full;
   }
@@ -85,27 +97,32 @@ function create_empty_jump_map(jump_drive) {
   
   const first_row_count = (Math.floor((jump_drive-1)/2)+1)*2;
   const second_row_count = Math.floor(jump_drive/2)*2+1;
-  for (i = 0; i < size-1; i++) {
-	  
+  for (i = 1; i < size; i++) {
+	var y = i-1+world_y;  
+	if (world_x%2 == 1) {
+	  y = y-1;
+	}
 	document.write("<tr height='32px'>");
 	for (j = 0; j < first_row_count; j++) {
-	  document.write("<td width='64px' rowspan='2' background='../images/Empty.jpg'></td>");
+	  var x = j*2-1+world_x;
+	  document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
 	}
 	document.write("</tr>");
 	
     document.write("<tr height='32px'>");
+	var y = i-1+world_y; 
 	for (j = 0; j < second_row_count; j++) {
-	  document.write("<td width='64px' rowspan='2' background='../images/Empty.jpg'></td>");
+	  var x = j*2+world_x;
+	  document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
 	}
 	document.write("</tr>");
-	
   }
 
   var full = (jump_drive%2)==0;
   document.write("<tr height='32px'>");
   for (j = 0; j < size; j++) {
 	if (!full) {
-	  document.write("<td width='64px' rowspan='1' background='../images/Bottom.jpg'></td>");
+	  document.write(`<td width='64px' rowspan='1' background='../images/Bottom.jpg'></td>`);
 	}
 	full = !full;
   }
