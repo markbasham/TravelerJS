@@ -75,6 +75,7 @@ function world_data_to_table(world) {
 function create_empty_jump_map(jump_drive, world_x, world_y) {
   const sector = get_sector('spinward_marches');
   document.write(Object.keys(sector[1][1]));
+  document.write(sector[1][1]['image']);
   const size = (jump_drive*2)+1;
   const table_width = 64*size;
   document.write(`<table border='0' cellspacing='0' cellpadding='0' width='${table_width}px' valign='top' style="color:#ffffff">`);
@@ -87,9 +88,9 @@ function create_empty_jump_map(jump_drive, world_x, world_y) {
 	var x = j-jump_drive+world_x;
 	var y = i-jump_drive+world_y;
 	if (full) {
-      document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
+      document.write(`<td width="64px" rowspan="2" style="font-size:70%;" align="center" valign="bottom" background="${sector[x][y]['image']}"><a href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}">${sector[x][y]['name']}</a></td>`);
 	} else {
-	  document.write(`<td width='64px' rowspan='1' background='../images/Top.jpg'></td>`);
+	  document.write(`<td width='64px' rowspan='1' style="font-size:70%;" align="center" valign="bottom" background='../images/Top.jpg'></td>`);
 	}
 	full = !full;
   }
@@ -109,7 +110,7 @@ function create_empty_jump_map(jump_drive, world_x, world_y) {
 	  if (jump_drive%2 == 0) {
 	    x = x+1;
 	  }
-	  document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
+	  document.write(`<td width="64px" rowspan="2" style="font-size:70%;" align="center" valign="bottom" background="${sector[x][y]['image']}"><a href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}">${sector[x][y]['name']}</a></td>`);
 	}
 	document.write("</tr>");
 	
@@ -120,7 +121,7 @@ function create_empty_jump_map(jump_drive, world_x, world_y) {
 	  if (jump_drive%2 == 0) {
 	    x = x-1;
 	  }
-	  document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
+	  document.write(`<td width="64px" rowspan="2" style="font-size:70%;" align="center" valign="bottom" background="${sector[x][y]['image']}"><a href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}">${sector[x][y]['name']}</a></td>`);
 	}
 	document.write("</tr>");
   }
