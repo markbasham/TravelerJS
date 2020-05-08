@@ -74,18 +74,18 @@ function world_data_to_table(world) {
 	
 function create_empty_jump_map(jump_drive, world_x, world_y) {
   const sector = get_sector('spinward_marches');
-  document.write(Object.keys(sector));
   document.write(Object.keys(sector[1][1]));
   const size = (jump_drive*2)+1;
   const table_width = 64*size;
   document.write(`<table border='0' cellspacing='0' cellpadding='0' width='${table_width}px' valign='top' style="color:#ffffff">`);
   
+  // First line
   var full = (jump_drive%2)==0;
   var i = 0;
   document.write("<tr height='32px'>");
   for (j = 0; j < size; j++) {
-	var x = j-1+world_x;
-	var y = i-1+world_y;
+	var x = j-jump_drive+world_x;
+	var y = i-jump_drive+world_y;
 	if (full) {
       document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
 	} else {
@@ -95,29 +95,37 @@ function create_empty_jump_map(jump_drive, world_x, world_y) {
   }
   document.write("</tr>");
   
+  // Body of the grid
   const first_row_count = (Math.floor((jump_drive-1)/2)+1)*2;
   const second_row_count = Math.floor(jump_drive/2)*2+1;
   for (i = 1; i < size; i++) {
-	var y = i-1+world_y;  
+	var y = i-jump_drive+world_y;  
 	if (world_x%2 == 1) {
 	  y = y-1;
 	}
 	document.write("<tr height='32px'>");
 	for (j = 0; j < first_row_count; j++) {
-	  var x = j*2-1+world_x;
+	  var x = j*2-jump_drive+world_x;
+	  if (jump_drive%2 == 0) {
+	    x = x+1;
+	  }
 	  document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
 	}
 	document.write("</tr>");
 	
     document.write("<tr height='32px'>");
-	var y = i-1+world_y; 
+	var y = i-jump_drive+world_y;
 	for (j = 0; j < second_row_count; j++) {
-	  var x = j*2+world_x;
+	  var x = j*2-jump_drive+1+world_x;
+	  if (jump_drive%2 == 0) {
+	    x = x-1;
+	  }
 	  document.write(`<td width='64px' rowspan='2' background='../images/Empty.jpg'>${x},${y}</td>`);
 	}
 	document.write("</tr>");
   }
 
+  // Last line of the grid
   var full = (jump_drive%2)==0;
   document.write("<tr height='32px'>");
   for (j = 0; j < size; j++) {
