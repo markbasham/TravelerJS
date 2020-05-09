@@ -1,23 +1,49 @@
 body {
-  background-color: lightblue;
+	background-color: lightblue;
 }
 
 h1 {
-  color: navy;
-  margin-left: 20px;
+	color: navy;
+	margin-left: 20px;
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  text-align: left;
+.world_table {
+	border-collapse: collapse;
+	width: 100%;
+	text-align: left;
 }
 
-th, td {
-  text-align: left;
-  padding: 8px;
+.world_table > td {
+	text-align: left;
+	padding: 8px;
 }
 
-tr:nth-child(even) {
+.world_table > tr:nth-child(even) {
 	background-color: #f2f2f2;
+}
+
+.sector_table {
+	border-collapse: separate;
+	border-spacing: 0px;
+	color: #ffffff;
+}
+
+.sector_table_row {
+	padding: 0px;
+	height: 32px;
+}
+
+.sector_table_column {
+	text-align: center;
+	padding: 0px;
+	width: 64px;
+}
+
+.world_link {
+	font-size: 70%;
+	color: #ffffff;
+}
+
+.startport_text {
+	font-weight: bold;
 }

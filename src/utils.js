@@ -60,7 +60,7 @@ function world_data_to_rows(name, data) {
 }
 
 function world_data_to_table(world) {
-  document.write("<table><tr><th style='width:25%'>Information</th><th style='width:40%'>Content</th><th style='width:35%'></th></tr>");
+  document.write("<table class='world_table'><tr><th style='width:25%'>Information</th><th style='width:40%'>Content</th><th style='width:35%'></th></tr>");
   world_data_to_rows("World Starport", world.starport);
   world_data_to_rows("World Size", world.size);
   world_data_to_rows("World Atmosphere", world.atmosphere);
@@ -74,23 +74,21 @@ function world_data_to_table(world) {
 	
 function create_empty_jump_map(jump_drive, world_x, world_y) {
   const sector = get_sector('spinward_marches');
-  document.write(Object.keys(sector[1][1]));
-  document.write(sector[1][1]['image']);
   const size = (jump_drive*2)+1;
   const table_width = 64*size;
-  document.write(`<table border='0' cellspacing='0' cellpadding='0' width='${table_width}px' valign='top' style="color:#ffffff">`);
+  document.write(`<table class='sector_table' width='${table_width}px'>`);
   
   // First line
   var full = (jump_drive%2)==0;
   var i = 0;
-  document.write("<tr height='32px'>");
+  document.write("<tr class='sector_table_row'>");
   for (j = 0; j < size; j++) {
 	var x = j-jump_drive+world_x;
 	var y = i-jump_drive+world_y;
 	if (full) {
-      document.write(`<td width="64px" rowspan="2" style="font-size:70%;" align="center" valign="bottom" background="${sector[x][y]['image']}"><a href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}">${sector[x][y]['name']}</a></td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}"> ${sector[x][y]['name']} </a> </td>`);
 	} else {
-	  document.write(`<td width='64px' rowspan='1' style="font-size:70%;" align="center" valign="bottom" background='../images/Top.jpg'></td>`);
+	  document.write(`<td class='sector_table_column' rowspan='1' align="center" valign="bottom" background='../images/Top.jpg'></td>`);
 	}
 	full = !full;
   }
@@ -104,34 +102,34 @@ function create_empty_jump_map(jump_drive, world_x, world_y) {
 	if (world_x%2 == 1) {
 	  y = y-1;
 	}
-	document.write("<tr height='32px'>");
+	document.write("<tr class='sector_table_row'>");
 	for (j = 0; j < first_row_count; j++) {
 	  var x = j*2-jump_drive+world_x;
 	  if (jump_drive%2 == 0) {
 	    x = x+1;
 	  }
-	  document.write(`<td width="64px" rowspan="2" style="font-size:70%;" align="center" valign="bottom" background="${sector[x][y]['image']}"><a href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}">${sector[x][y]['name']}</a></td>`);
+	  document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}"> ${sector[x][y]['name']} </a> </td>`);
 	}
 	document.write("</tr>");
 	
-    document.write("<tr height='32px'>");
+    document.write("<tr class='sector_table_row'>");
 	var y = i-jump_drive+world_y;
 	for (j = 0; j < second_row_count; j++) {
 	  var x = j*2-jump_drive+1+world_x;
 	  if (jump_drive%2 == 0) {
 	    x = x-1;
 	  }
-	  document.write(`<td width="64px" rowspan="2" style="font-size:70%;" align="center" valign="bottom" background="${sector[x][y]['image']}"><a href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}">${sector[x][y]['name']}</a></td>`);
+	  document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}"> ${sector[x][y]['name']} </a> </td>`);
 	}
 	document.write("</tr>");
   }
 
   // Last line of the grid
   var full = (jump_drive%2)==0;
-  document.write("<tr height='32px'>");
+  document.write("<tr class='sector_table_row'>");
   for (j = 0; j < size; j++) {
 	if (!full) {
-	  document.write(`<td width='64px' rowspan='1' background='../images/Bottom.jpg'></td>`);
+	  document.write(`<td class='sector_table_column' rowspan='1' background='../images/Bottom.jpg'></td>`);
 	}
 	full = !full;
   }
