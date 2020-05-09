@@ -16,10 +16,16 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const world_name = urlParams.get('name');
 const world_code = urlParams.get('code');
+const jump_distance = urlParams.get('jump');
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
 var world = get_world_data(world_code);
 </script>
 
+<script>
+create_empty_jump_map(jump_distance, world_name);
+</script>
+
+<br>
 
 <script>
 world_data_to_table(world);
