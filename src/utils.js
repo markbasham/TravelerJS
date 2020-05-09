@@ -72,8 +72,20 @@ function world_data_to_table(world) {
   document.write("</table>");
 }
 	
-function create_empty_jump_map(jump_drive, world_x, world_y) {
+function create_empty_jump_map(jump_drive, world_name) {
   const sector = get_sector('spinward_marches');
+  var world_x = 5;
+  var world_y = 5;
+  var i;
+  var j;
+  for (i = 1; i < 33; i++) {
+    for (j = 1; j < 41; j++) {
+	  if (world_name.trim() == sector[i][j]['name'].trim()) {
+		world_x = i;
+	    world_y = j;
+	  }
+    }
+  }
   const size = (jump_drive*2)+1;
   const table_width = 64*size;
   document.write(`<table class='sector_table' width='${table_width}px'>`);
