@@ -22,6 +22,22 @@ h1 {
 	background-color: #f2f2f2;
 }
 
+.world_trade_table {
+	border-collapse: collapse;
+	width: 100%;
+	text-align: left;
+}
+
+.world_trade_table > td {
+	text-align: left;
+	padding: 8px;
+}
+
+.world_trade_table > tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+
 .sector_table {
 	border-collapse: separate;
 	border-spacing: 0px;

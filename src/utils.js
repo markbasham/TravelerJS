@@ -18,6 +18,12 @@ function get_value_from_table(table, lookup='0') {
   return data.data[index]
 }
 
+function get_trade_codes() {
+  var data_string = httpGet("../json/trade_codes.json")
+  var data = JSON.parse(data_string);
+  return data['data']
+}
+
 function get_sector(sector) {
   var data_string = httpGet("../json/"+sector+".json")
   var data = JSON.parse(data_string);
@@ -37,17 +43,63 @@ function trim_illegal_posessions(world) {
   }
 }
 
+function get_world_trade_codes(world){
+  var trade_codes = get_trade_codes();
+  var world_codes = [];
+  for (const code in trade_codes) {
+	//document.write("<b>================="+code+"</b><br>");
+	delete trade_codes[code].Classification;
+	delete trade_codes[code].Description;
+	var code_valid = true;
+    for (const requirement in trade_codes[code]) {	
+      //document.write(requirement+"<br>");		  
+	  var req_value = parseInt(world[requirement+'_value'], 16);
+	  var req_valid = false;
+      for (const range of trade_codes[code][requirement].split(',')) {
+		//document.write(range.toString(), "<br>"); 
+		var min = parseInt(range.substring(0, 2));
+		var max = Math.abs(parseInt(range.substring(2)));
+		//document.write(`${req_value},${min},${max}<br>`); 
+		if (req_value >= min && req_value <= max) {
+			req_valid = true;
+		}
+		//document.write(req_valid,"<br>");
+	  }
+	  if (req_valid == false) {
+		  code_valid = false;
+	  }
+	  //document.write(code_valid,"<br>");
+    }
+	if (code_valid) {
+	  world_codes.push(code);
+	}
+  }
+  //document.write("WORLD CODES", world_codes,"<br>");
+  return(world_codes);
+}
+
 function get_world_data(code) {
-  var world = new Object();
-  world.starport = get_value_from_table('world_starport', code.substring(0, 1));
-  world.size = get_value_from_table('world_size', code.substring(1, 2));
-  world.atmosphere = get_value_from_table('world_atmosphere', code.substring(2, 3));
-  world.hydrographics = get_value_from_table('world_hydrographics', code.substring(3, 4));
-  world.population = get_value_from_table('world_population', code.substring(4, 5));
-  world.government = get_value_from_table('world_government', code.substring(5, 6));
-  world.law_level = get_value_from_table('world_law_level', code.substring(6, 7));
-  world.tech_level = get_value_from_table('world_tech_level', code.substring(8, 9));
+  var world = new Object();  
+  world.starport_value = code.substring(0, 1);
+  world.size_value = code.substring(1, 2);
+  world.atmosphere_value = code.substring(2, 3);
+  world.hydrographics_value = code.substring(3, 4);
+  world.population_value = code.substring(4, 5);
+  world.government_value = code.substring(5, 6);
+  world.law_level_value = code.substring(6, 7);
+  world.tech_level_value = code.substring(8, 9);
+  
+  world.starport = get_value_from_table('world_starport', world.starport_value);
+  world.size = get_value_from_table('world_size', world.size_value);
+  world.atmosphere = get_value_from_table('world_atmosphere', world.atmosphere_value);
+  world.hydrographics = get_value_from_table('world_hydrographics', world.hydrographics_value);
+  world.population = get_value_from_table('world_population', world.population_value);
+  world.government = get_value_from_table('world_government', world.government_value);
+  world.law_level = get_value_from_table('world_law_level', world.law_level_value);
+  world.tech_level = get_value_from_table('world_tech_level', world.tech_level_value);
   trim_illegal_posessions(world);
+  
+  world.trade_codes = get_world_trade_codes(world);
   return world;
 }
 
@@ -71,6 +123,16 @@ function world_data_to_table(world) {
   world_data_to_rows("World Tech Level", world.tech_level);
   document.write("</table>");
 }
+
+function world_trade_data_to_table(world) {
+  var trade_codes = get_trade_codes();
+  document.write("<table class='world_trade_table'><tr><th style='width:10%'>Code</th><th style='width:25%'>Classification</th><th style='width:65%'>Description</th></tr>");
+  for (const code of world.trade_codes) {
+	  document.write(`<tr><th>${code}</th><th>${trade_codes[code]['Classification']}</th><th>${trade_codes[code]['Description']}</th></tr>`);
+  }
+  document.write("</table>");
+}
+
 	
 function create_empty_jump_map(jump_drive, world_name) {
   const sector = get_sector('spinward_marches');
