@@ -7,7 +7,7 @@ function httpGet(theUrl) {
 }
 
 function get_value_from_table(table, lookup='0') {
-  var data_string = httpGet("../json/"+table+".json")
+  var data_string = httpGet("../json/"+table+".json");
   var data = JSON.parse(data_string);
   var index = 'D'+lookup;
   switch(data.select) {
@@ -15,19 +15,45 @@ function get_value_from_table(table, lookup='0') {
       index = ('R' + Math.floor(Math.random() * 6 + 1))+ Math.floor(Math.random() * 6 + 1);
       break;
   }
-  return data.data[index]
+  return data.data[index];
 }
 
 function get_trade_codes() {
-  var data_string = httpGet("../json/trade_codes.json")
+  var data_string = httpGet("../json/trade_codes.json");
   var data = JSON.parse(data_string);
-  return data['data']
+  return data['data'];
 }
 
 function get_sector(sector) {
-  var data_string = httpGet("../json/"+sector+".json")
+  var data_string = httpGet("../json/"+sector+".json");
   var data = JSON.parse(data_string);
-  return data
+  return data;
+}
+
+function get_jump_map() {
+  var data_string = httpGet("../json/jump_map.json");
+  var data = JSON.parse(data_string);
+  return data;
+}
+
+function get_worlds_at_jump_range(sector, world_name, jump){
+  var world_pos = get_world_location(world_name, sector);
+  var world_x = world_pos[0];
+  var world_y = world_pos[1];
+  
+  var jump_map = get_jump_map();
+  var x_grid = 'odd';
+  if (world_x % 2 == 0){
+	  x_grid = 'even';
+  }
+  world_list = [];
+  jump_list = jump_map[x_grid]['J'+jump.toString()];
+  for (var i = 0; i < jump_list.length; i++) {
+    world = sector[world_x + jump_list[i][0]][world_y + jump_list[i][1]];
+	world_list.push(world);
+	document.write(world.name+"<br>");
+  }
+  return world_list;
 }
 
 function trim_illegal_posessions(world) {
@@ -133,11 +159,9 @@ function world_trade_data_to_table(world) {
   document.write("</table>");
 }
 
-	
-function create_empty_jump_map(jump_drive, world_name) {
-  const sector = get_sector('spinward_marches');
-  var world_x = 5;
-  var world_y = 5;
+function get_world_location(world_name, sector) {
+  var world_x;
+  var world_y;
   var i;
   var j;
   for (i = 1; i < 33; i++) {
@@ -148,6 +172,16 @@ function create_empty_jump_map(jump_drive, world_name) {
 	  }
     }
   }
+  return [world_x, world_y];
+}  
+	
+	
+function create_jump_map(jump_drive, world_name) {
+  const sector = get_sector('spinward_marches');
+  var world_pos = get_world_location(world_name, sector);
+  var world_x = world_pos[0];
+  var world_y = world_pos[1];
+
   const size = (jump_drive*2)+1;
   const table_width = 64*size;
   document.write(`<table class='sector_table' width='${table_width}px'>`);
@@ -209,8 +243,9 @@ function create_empty_jump_map(jump_drive, world_name) {
   }
   document.write("</tr>");
   document.write("</table>");
+  
+  return sector;
 }
-
 
 
 

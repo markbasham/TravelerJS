@@ -22,7 +22,13 @@ var world = get_world_data(world_code);
 </script>
 
 <script>
-create_empty_jump_map(jump_distance, world_name);
+var sector = create_jump_map(jump_distance, world_name);
+</script>
+
+<br>
+
+<script>
+get_worlds_at_jump_range(sector, world_name, jump_distance);
 </script>
 
 <br>
