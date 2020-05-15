@@ -36,12 +36,9 @@ function get_jump_map() {
   return data;
 }
 
-function get_worlds_at_jump_range(sector, world_name, jump){
-  var world_pos = get_world_location(world_name, sector);
-  var world_x = world_pos[0];
-  var world_y = world_pos[1];
-  
+function get_worlds_at_jump_range(sector, world_x, world_y, jump){
   var jump_map = get_jump_map();
+  document.write("<br>Jump "+jump.toString()+" : ");
   var x_grid = 'odd';
   if (world_x % 2 == 0){
 	  x_grid = 'even';
@@ -49,11 +46,26 @@ function get_worlds_at_jump_range(sector, world_name, jump){
   world_list = [];
   jump_list = jump_map[x_grid]['J'+jump.toString()];
   for (var i = 0; i < jump_list.length; i++) {
-    world = sector[world_x + jump_list[i][0]][world_y + jump_list[i][1]];
-	world_list.push(world);
-	document.write(world.name+"<br>");
+    var jump_world = sector[world_x + jump_list[i][0]][world_y + jump_list[i][1]];
+	if (!(jump_world.name == "")) {
+	  world_list.push(jump_world);
+	  document.write(jump_world.name+", ");
+	}
   }
   return world_list;
+}
+
+function get_trade_map(sector, world_name, jump) {
+  var world_pos = get_world_location(world_name, sector);
+  var world_x = world_pos[0];
+  var world_y = world_pos[1];	
+	
+  var trade_map = new Object(); 
+  trade_map.world = sector[world_x][world_y];
+  for (var i = 1; i <= jump; i++) {
+    trade_map[i] = get_worlds_at_jump_range(sector, world_x, world_y, i);
+  }
+  return trade_map;
 }
 
 function trim_illegal_posessions(world) {

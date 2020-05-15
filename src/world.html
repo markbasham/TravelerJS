@@ -18,29 +18,25 @@ const world_name = urlParams.get('name');
 const world_code = urlParams.get('code');
 const jump_distance = urlParams.get('jump');
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
-var world = get_world_data(world_code);
-</script>
 
-<script>
-var sector = create_jump_map(jump_distance, world_name);
-</script>
+const world = get_world_data(world_code);
 
-<br>
+document.write("<br>");
 
-<script>
-get_worlds_at_jump_range(sector, world_name, jump_distance);
-</script>
+const sector = create_jump_map(jump_distance, world_name);
 
-<br>
+document.write("<br>");
 
-<script>
+const trade_map = get_trade_map(sector, world_name, jump_distance);
+
+document.write("<br>");
+
 world_trade_data_to_table(world);
-</script>
 
-<br>
+document.write("<br>");
 
-<script>
 world_data_to_table(world);
+
 </script>
 
 <table>
