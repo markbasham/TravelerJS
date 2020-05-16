@@ -24,6 +24,12 @@ function get_trade_codes() {
   return data['data'];
 }
 
+function get_freight_traffic() {
+  var data_string = httpGet("../json/freight_traffic.json");
+  var data = JSON.parse(data_string);
+  return data;
+}
+
 function get_sector(sector) {
   var data_string = httpGet("../json/"+sector+".json");
   var data = JSON.parse(data_string);
@@ -38,7 +44,7 @@ function get_jump_map() {
 
 function get_worlds_at_jump_range(sector, world_x, world_y, jump){
   var jump_map = get_jump_map();
-  document.write("<br>Jump "+jump.toString()+" : ");
+  //document.write("<br>Jump "+jump.toString()+" : ");
   var x_grid = 'odd';
   if (world_x % 2 == 0){
 	  x_grid = 'even';
@@ -49,10 +55,23 @@ function get_worlds_at_jump_range(sector, world_x, world_y, jump){
     var jump_world = sector[world_x + jump_list[i][0]][world_y + jump_list[i][1]];
 	if (!(jump_world.name == "")) {
 	  world_list.push(jump_world);
-	  document.write(jump_world.name+", ");
+	  //document.write(jump_world.name+", ");
 	}
   }
   return world_list;
+}
+
+function get_freight_modifiers(world, destination) {
+  var freight_traffic = get_freight_traffic();
+  var lookup = freight_traffic['current'];
+  if (destination) {
+    lookup = freight_traffic['destination'];    
+  }
+  var mod = 0;
+  for (const code in world.trade_codes) {
+	  mod = mod + parseInt(lookup[code]);
+  }
+  return mod;
 }
 
 function get_trade_map(sector, world_name, jump) {
@@ -62,8 +81,14 @@ function get_trade_map(sector, world_name, jump) {
 	
   var trade_map = new Object(); 
   trade_map.world = sector[world_x][world_y];
+  var current_DM = get_freight_modifiers(trade_map.world, false);
   for (var i = 1; i <= jump; i++) {
     trade_map[i] = get_worlds_at_jump_range(sector, world_x, world_y, i);
+	document.write("<br>Jump "+jump.toString()+" : ");
+	for (var j = 0; j < trade_map[i].length; j++) {
+		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(trade_map[i][j], true);
+		document.write(trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
+	}
   }
   return trade_map;
 }
