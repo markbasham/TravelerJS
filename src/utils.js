@@ -68,7 +68,7 @@ function get_freight_modifiers(world, destination) {
     lookup = freight_traffic['destination'];    
   }
   var mod = 0;
-  for (const code in world.trade_codes) {
+  for (const code of world.trade_codes) {
 	  mod = mod + parseInt(lookup[code]);
   }
   return mod;
@@ -80,13 +80,13 @@ function get_trade_map(sector, world_name, jump) {
   var world_y = world_pos[1];	
 	
   var trade_map = new Object(); 
-  trade_map.world = sector[world_x][world_y];
+  trade_map.world = get_world_data(sector[world_x][world_y].code);
   var current_DM = get_freight_modifiers(trade_map.world, false);
   for (var i = 1; i <= jump; i++) {
     trade_map[i] = get_worlds_at_jump_range(sector, world_x, world_y, i);
 	document.write("<br>Jump "+jump.toString()+" : ");
 	for (var j = 0; j < trade_map[i].length; j++) {
-		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(trade_map[i][j], true);
+		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(get_world_data(trade_map[i][j].code), true);
 		document.write(trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
 	}
   }
