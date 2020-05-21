@@ -14,6 +14,16 @@ function get_value_from_table(table, lookup='0') {
     case "D66":
       index = ('R' + Math.floor(Math.random() * 6 + 1))+ Math.floor(Math.random() * 6 + 1);
       break;
+	case "value":
+	  var value = lookup
+	  if (value > data['value_max']) {
+		  value = data['value_max'];
+	  }
+	  if (value < data['value_min']) {
+		  value = data['value_min'];
+	  }
+	  index = ('V' + value);
+      break;
   }
   return data.data[index];
 }
@@ -84,10 +94,17 @@ function get_trade_map(sector, world_name, jump) {
   var current_DM = get_freight_modifiers(trade_map.world, false);
   for (var i = 1; i <= jump; i++) {
     trade_map[i] = get_worlds_at_jump_range(sector, world_x, world_y, i);
-	document.write("<br>Jump "+jump.toString()+" : ");
+	document.write("<br>Jump "+i.toString()+" : ");
 	for (var j = 0; j < trade_map[i].length; j++) {
-		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(get_world_data(trade_map[i][j].code), true);
-		document.write(trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
+		var destination_world = get_world_data(trade_map[i][j].code);
+		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(destination_world, true);
+		var freight_traffic_value = parseInt(destination_world.population_value, 16);
+		freight_traffic_value += trade_map[i][j]["freight_DM"];
+		trade_map[i][j]["Available_freight_lots"] = get_value_from_table("freight_available_lots", lookup = freight_traffic_value);
+		document.write("<br>"+trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
+		document.write("<br>"+trade_map[i][j]['Available_freight_lots'].Incidental);
+		document.write("<br>"+trade_map[i][j]['Available_freight_lots'].Minor);
+		document.write("<br>"+trade_map[i][j]['Available_freight_lots'].Major);
 	}
   }
   return trade_map;

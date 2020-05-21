@@ -1,0 +1,24 @@
+{
+  "select":"value",
+  "value_max":"16",
+  "value_min":"0",
+  "data": {
+    "V0" :{"Incidental":"0"     ,"Minor":"0"     ,"Major":"0"},
+    "V1" :{"Incidental":"0"     ,"Minor":"0"     ,"Major":"0"},
+	"V2" :{"Incidental":"0"     ,"Minor":"0"     ,"Major":"1D6-4"},
+	"V3" :{"Incidental":"0"     ,"Minor":"0"     ,"Major":"1D6-3"},
+	"V4" :{"Incidental":"0"     ,"Minor":"1D6-4" ,"Major":"1D6-2"},
+	"V5" :{"Incidental":"0"     ,"Minor":"1D6-3" ,"Major":"1D6-1"},
+	"V6" :{"Incidental":"0"     ,"Minor":"1D6-2" ,"Major":"1D6"},
+	"V7" :{"Incidental":"0"     ,"Minor":"1D6-1" ,"Major":"1D6+1"},
+	"V8" :{"Incidental":"0"     ,"Minor":"1D6"   ,"Major":"1D6+2"},
+	"V9" :{"Incidental":"1D6-4" ,"Minor":"1D6+1" ,"Major":"1D6+3"},
+	"V10":{"Incidental":"1D6-3" ,"Minor":"1D6+2" ,"Major":"1D6+4"},
+	"V11":{"Incidental":"1D6-2" ,"Minor":"1D6+3" ,"Major":"1D6+5"},
+	"V12":{"Incidental":"1D6-1" ,"Minor":"1D6+4" ,"Major":"1D6+6"},
+	"V13":{"Incidental":"1D6"   ,"Minor":"1D6+5" ,"Major":"1D6+7"},
+	"V14":{"Incidental":"1D6+1" ,"Minor":"1D6+6" ,"Major":"1D6+8"},
+	"V15":{"Incidental":"1D6+2" ,"Minor":"1D6+7" ,"Major":"1D6+9"},
+	"V16":{"Incidental":"1D6+3" ,"Minor":"1D6+8" ,"Major":"1D6+10"}
+  }
+}
