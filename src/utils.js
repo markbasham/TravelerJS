@@ -6,6 +6,43 @@ function httpGet(theUrl) {
   return xmlHttp.responseText;
 }
 
+function roll_dice(dice_value) {
+  if (dice_value.includes('D') == false) {
+	  return parseInt(dice_value);
+  }
+  var d_split = dice_value.split('D')
+  var multiplier = 1;
+  if (d_split[0].length > 0) {
+    multiplier = parseInt(d_split[0]);
+  }
+  var modifier = 0;
+  var dice = "";
+  if (d_split[1].includes("+")) {
+    var m_split = d_split[1].split("+");
+	dice = m_split[0];
+	modifier = parseInt(m_split[1]);
+  } else if (d_split[1].includes("-")){
+	var m_split = d_split[1].split("-");
+	dice = m_split[0];
+	modifier = -parseInt(m_split[1]);
+  } else {
+	  dice = d_split[1];
+  }
+  var roll = 0;
+  for (var i = 0; i < multiplier; i++) {
+    switch(dice) {
+      case "6":
+	    roll += Math.floor(Math.random() * 6 + 1);
+	    break;
+	  case "66":
+	    roll += (Math.floor(Math.random() * 6 + 1)*10)+Math.floor(Math.random() * 6 + 1);
+		break;
+	}
+  }
+  roll += modifier;
+  return roll;	  
+}
+
 function get_value_from_table(table, lookup='0') {
   var data_string = httpGet("../json/"+table+".json");
   var data = JSON.parse(data_string);
@@ -101,10 +138,13 @@ function get_trade_map(sector, world_name, jump) {
 		var freight_traffic_value = parseInt(destination_world.population_value, 16);
 		freight_traffic_value += trade_map[i][j]["freight_DM"];
 		trade_map[i][j]["Available_freight_lots"] = get_value_from_table("freight_available_lots", lookup = freight_traffic_value);
+		var incident = trade_map[i][j]['Available_freight_lots'].Incidental;
+		var minor = trade_map[i][j]['Available_freight_lots'].Minor;
+		var major = trade_map[i][j]['Available_freight_lots'].Major;
 		document.write("<br>"+trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
-		document.write("<br>"+trade_map[i][j]['Available_freight_lots'].Incidental);
-		document.write("<br>"+trade_map[i][j]['Available_freight_lots'].Minor);
-		document.write("<br>"+trade_map[i][j]['Available_freight_lots'].Major);
+		document.write("<br>Incidental Lots ("+incident+"): "+roll_dice(incident));
+		document.write("<br>Minor Lots ("+minor+"): "+roll_dice(minor));
+		document.write("<br>Major Lots ("+major+"): "+roll_dice(major));
 	}
   }
   return trade_map;
