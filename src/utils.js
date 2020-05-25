@@ -131,7 +131,7 @@ function get_trade_map(sector, world_name, jump) {
   var current_DM = get_freight_modifiers(trade_map.world, false);
   for (var i = 1; i <= jump; i++) {
     trade_map[i] = get_worlds_at_jump_range(sector, world_x, world_y, i);
-	document.write("<br>Jump "+i.toString()+" : ");
+	//document.write("<br>Jump "+i.toString()+" : ");
 	for (var j = 0; j < trade_map[i].length; j++) {
 		var destination_world = get_world_data(trade_map[i][j].code);
 		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(destination_world, true);
@@ -141,10 +141,10 @@ function get_trade_map(sector, world_name, jump) {
 		var incident = trade_map[i][j]['Available_freight_lots'].Incidental;
 		var minor = trade_map[i][j]['Available_freight_lots'].Minor;
 		var major = trade_map[i][j]['Available_freight_lots'].Major;
-		document.write("<br>"+trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
-		document.write("<br>Incidental Lots ("+incident+"): "+roll_dice(incident));
-		document.write("<br>Minor Lots ("+minor+"): "+roll_dice(minor));
-		document.write("<br>Major Lots ("+major+"): "+roll_dice(major));
+		//document.write("<br>"+trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
+		//document.write("<br>Incidental Lots ("+incident+"): "+roll_dice(incident));
+		//document.write("<br>Minor Lots ("+minor+"): "+roll_dice(minor));
+		//document.write("<br>Major Lots ("+major+"): "+roll_dice(major));
 	}
   }
   return trade_map;
@@ -249,6 +249,31 @@ function world_trade_data_to_table(world) {
   document.write("<table class='world_trade_table'><tr><th style='width:10%'>Code</th><th style='width:25%'>Classification</th><th style='width:65%'>Description</th></tr>");
   for (const code of world.trade_codes) {
 	  document.write(`<tr><th>${code}</th><th>${trade_codes[code]['Classification']}</th><th>${trade_codes[code]['Description']}</th></tr>`);
+  }
+  document.write("</table>");
+}
+
+function build_freight_table(trade_map) {
+  var trade_codes = get_trade_codes();
+  document.write("<table class='freight_table'><tr><th style='width:10%'>World</th><th style='width:20%'>Jump</th><th style='width:30%'>Tons of Freight</th><th style='width:30%'>Freight type</th><th style='width:10%'>Fee</th></tr>");
+  const pop = parseInt(trade_map.world.population_value, 16);
+  for (var j = 0; j < Math.ceil(pop/3.0); j++) {
+    document.write(`<tr><th>Source ${j}</th><th></th><th></th><th></th><th></th></tr>`);
+	var base_source_cost=500;
+    for (const jump in trade_map) {
+	  if (jump === 'world') { continue; }
+      for (const freight of trade_map[jump]) {
+	    for (const freight_type in freight.Available_freight_lots) {
+		  for (var i = 0; i < roll_dice(freight.Available_freight_lots[freight_type]); i++) {
+		    var freight_weight = roll_dice('D6');
+		    if (freight_type == 'Minor') { freight_weight *= 5 }
+		    if (freight_type == 'Major') { freight_weight *= 10 }
+			var fee = (freight_weight*base_source_cost)*(1+(0.2*(parseInt(jump)-1)));
+		    document.write(`<tr><th>${freight.name}</th><th>${jump}</th><th>${freight_weight}</th><th>Goods</th><th>${fee}</th></tr>`);
+		  }
+		}
+	  }
+	}
   }
   document.write("</table>");
 }
