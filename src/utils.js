@@ -226,7 +226,7 @@ function get_world_data(code) {
 function world_data_to_rows(name, data) {
   var title = name;
   for (const property in data) {
-    document.write(`<tr><th>${title}</th><th>${property}</th><th>${data[property]}</th></tr>`);
+    document.write(`<tr><td>${title}</td><td>${property}</td><td>${data[property]}</td></tr>`);
     title = "";
   }
 }
@@ -248,7 +248,7 @@ function world_trade_data_to_table(world) {
   var trade_codes = get_trade_codes();
   document.write("<table class='world_trade_table'><tr><th style='width:10%'>Code</th><th style='width:25%'>Classification</th><th style='width:65%'>Description</th></tr>");
   for (const code of world.trade_codes) {
-	  document.write(`<tr><th>${code}</th><th>${trade_codes[code]['Classification']}</th><th>${trade_codes[code]['Description']}</th></tr>`);
+	  document.write(`<tr><td>${code}</td><td>${trade_codes[code]['Classification']}</td><td>${trade_codes[code]['Description']}</td></tr>`);
   }
   document.write("</table>");
 }
@@ -269,7 +269,7 @@ function build_freight_table(trade_map) {
 		    if (freight_type == 'Minor') { freight_weight *= 5 }
 		    if (freight_type == 'Major') { freight_weight *= 10 }
 			var fee = (freight_weight*base_source_cost)*(1+(0.2*(parseInt(jump)-1)));
-		    document.write(`<tr><th>${freight.name}</th><th>${jump}</th><th>${freight_weight}</th><th>Goods</th><th>${fee}</th></tr>`);
+		    document.write(`<tr><td>${freight.name}</td><td>${jump}</td><td>${freight_weight}</td><td>Goods</td><td>${fee}</td></tr>`);
 		  }
 		}
 	  }
