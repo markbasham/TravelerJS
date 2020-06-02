@@ -121,6 +121,18 @@ function get_freight_modifiers(world, destination) {
   return mod;
 }
 
+function get_mail_modifiers(tech_level, freight_DM, ship_armed=false, NSFT_rank=0, social_standing_DM=0) {
+  var mail_DM = NSFT_rank;
+  if (freight_DM <= -10) {mail_DM -= 2}
+  if (freight_DM <= -5 && freight_DM >= -9 ) {mail_DM -= 1}
+  if (freight_DM >= 5 && freight_DM <= 9 ) {mail_DM += 1}
+  if (freight_DM >= 10) {mail_DM += 2}
+  if (ship_armed) {mail_DM += 2}
+  mail_DM += social_standing_DM;
+  if (tech_level <= 5) {mail_DM -= 4}
+  return mail_DM;  
+}
+
 function get_trade_map(sector, world_name, jump) {
   var world_pos = get_world_location(world_name, sector);
   var world_x = world_pos[0];
@@ -135,6 +147,7 @@ function get_trade_map(sector, world_name, jump) {
 	for (var j = 0; j < trade_map[i].length; j++) {
 		var destination_world = get_world_data(trade_map[i][j].code);
 		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(destination_world, true);
+		// Set up the freight information
 		var freight_traffic_value = parseInt(destination_world.population_value, 16);
 		freight_traffic_value += trade_map[i][j]["freight_DM"];
 		trade_map[i][j]["Available_freight_lots"] = get_value_from_table("freight_available_lots", lookup = freight_traffic_value);
@@ -145,6 +158,7 @@ function get_trade_map(sector, world_name, jump) {
 		//document.write("<br>Incidental Lots ("+incident+"): "+roll_dice(incident));
 		//document.write("<br>Minor Lots ("+minor+"): "+roll_dice(minor));
 		//document.write("<br>Major Lots ("+major+"): "+roll_dice(major));
+		trade_map[i][j]["mail_DM"] = get_mail_modifiers(parseInt(world.tech_level_value,16), trade_map[i][j]["freight_DM"]);
 	}
   }
   return trade_map;
