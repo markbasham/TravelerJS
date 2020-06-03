@@ -1,3 +1,3 @@
 Some basic world pages
 
-[Example World](src/world.html?name=Rasatt&code=E883401-7)
+[Zaibon in the Spinward Marches](src/world.html?name=Zaibon&code=B000544-B&jump=2)
