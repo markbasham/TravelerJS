@@ -292,6 +292,22 @@ function build_freight_table(trade_map) {
   document.write("</table>");
 }
 
+function build_mail_table(trade_map) {
+  var trade_codes = get_trade_codes();
+  document.write("<table class='mail_table'><tr><th style='width:25%'>Jump</th><th style='width:50%'>World</th><th style='width:25%'>Fee</th></tr>");
+  var base_mail_cost=20000;
+  for (const jump in trade_map) {
+	if (jump == 'world') { continue; }
+    for (const mail of trade_map[jump]) {
+      var mail_check = roll_dice("2D6") + mail.mail_DM;
+	  if (mail_check >= 12) {
+		  document.write(`<tr><td>${jump}</td><td>${mail.name}</td><td>${base_mail_cost}</td></tr>`);
+	  }
+	}
+  }
+  document.write("</table>");
+}
+
 function get_world_location(world_name, sector) {
   var world_x;
   var world_y;
