@@ -1,0 +1,24 @@
+{
+  "select":"value",
+  "value_max":"16",
+  "value_min":"0",
+  "data": {
+    "V0" :{"Low":"0"       ,"Middle":"0"       ,"High":"0"},
+    "V1" :{"Low":"2D6-6"   ,"Middle":"0"       ,"High":"0"},
+	"V2" :{"Low":"2D6"     ,"Middle":"1D6-2"   ,"High":"0"},
+	"V3" :{"Low":"2D6"     ,"Middle":"1D6"     ,"High":"1D6-1D6"},
+	"V4" :{"Low":"3D6-1D6" ,"Middle":"2D6-1D6" ,"High":"2D6-2D6"},
+	"V5" :{"Low":"3D6-1D6" ,"Middle":"2D6-1D6" ,"High":"2D6-1D6"},
+	"V6" :{"Low":"3D6"     ,"Middle":"2D6"     ,"High":"3D6-2D6"},
+	"V7" :{"Low":"3D6"     ,"Middle":"3D6-2D6" ,"High":"3D6-2D6"},
+	"V8" :{"Low":"4D6"     ,"Middle":"3D6-1D6" ,"High":"3D6-1D6"},
+	"V9" :{"Low":"4D6"     ,"Middle":"3D6-1D6" ,"High":"3D6-1D6"},
+	"V10":{"Low":"5D6"     ,"Middle":"3D6"     ,"High":"3D6-1D6"},
+	"V11":{"Low":"5D6"     ,"Middle":"4D6"     ,"High":"3D6"},
+	"V12":{"Low":"6D6"     ,"Middle":"4D6"     ,"High":"3D6"},
+	"V13":{"Low":"6D6"     ,"Middle":"4D6"     ,"High":"4D6"},
+	"V14":{"Low":"7D6"     ,"Middle":"5D6"     ,"High":"4D6"},
+	"V15":{"Low":"8D6"     ,"Middle":"5D6"     ,"High":"4D6"},
+	"V16":{"Low":"9D6"     ,"Middle":"6D6"     ,"High":"5D6"}
+  }
+}

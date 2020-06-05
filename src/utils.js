@@ -77,6 +77,12 @@ function get_freight_traffic() {
   return data;
 }
 
+function get_passenger_traffic() {
+  var data_string = httpGet("../json/passenger_traffic.json");
+  var data = JSON.parse(data_string);
+  return data;
+}
+
 function get_sector(sector) {
   var data_string = httpGet("../json/"+sector+".json");
   var data = JSON.parse(data_string);
@@ -121,6 +127,19 @@ function get_freight_modifiers(world, destination) {
   return mod;
 }
 
+function get_passenger_modifiers(world, destination) {
+  var passenger_traffic = get_passenger_traffic();
+  var lookup = passenger_traffic['current'];
+  if (destination) {
+    lookup = passenger_traffic['destination'];    
+  }
+  var mod = 0;
+  for (const code of world.trade_codes) {
+	  mod = mod + parseInt(lookup[code]);
+  }
+  return mod;
+}
+
 function get_mail_modifiers(tech_level, freight_DM, ship_armed=false, NSFT_rank=0, social_standing_DM=0) {
   var mail_DM = NSFT_rank;
   if (freight_DM <= -10) {mail_DM -= 2}
@@ -140,25 +159,28 @@ function get_trade_map(sector, world_name, jump) {
 	
   var trade_map = new Object(); 
   trade_map.world = get_world_data(sector[world_x][world_y].code);
-  var current_DM = get_freight_modifiers(trade_map.world, false);
+  var current_freight_DM = get_freight_modifiers(trade_map.world, false);
+  var current_passenger_DM = get_passenger_modifiers(trade_map.world, false);
   for (var i = 1; i <= jump; i++) {
     trade_map[i] = get_worlds_at_jump_range(sector, world_x, world_y, i);
 	//document.write("<br>Jump "+i.toString()+" : ");
 	for (var j = 0; j < trade_map[i].length; j++) {
 		var destination_world = get_world_data(trade_map[i][j].code);
-		trade_map[i][j]["freight_DM"] = current_DM + get_freight_modifiers(destination_world, true);
+		
 		// Set up the freight information
+		trade_map[i][j]["freight_DM"] = current_freight_DM + get_freight_modifiers(destination_world, true);
 		var freight_traffic_value = parseInt(destination_world.population_value, 16);
 		freight_traffic_value += trade_map[i][j]["freight_DM"];
 		trade_map[i][j]["Available_freight_lots"] = get_value_from_table("freight_available_lots", lookup = freight_traffic_value);
-		var incident = trade_map[i][j]['Available_freight_lots'].Incidental;
-		var minor = trade_map[i][j]['Available_freight_lots'].Minor;
-		var major = trade_map[i][j]['Available_freight_lots'].Major;
-		//document.write("<br>"+trade_map[i][j].name+"("+trade_map[i][j]['freight_DM']+"DM), ");
-		//document.write("<br>Incidental Lots ("+incident+"): "+roll_dice(incident));
-		//document.write("<br>Minor Lots ("+minor+"): "+roll_dice(minor));
-		//document.write("<br>Major Lots ("+major+"): "+roll_dice(major));
+		
+		// Set up the mail values
 		trade_map[i][j]["mail_DM"] = get_mail_modifiers(parseInt(world.tech_level_value,16), trade_map[i][j]["freight_DM"]);
+		
+		// Set up the freight information
+		trade_map[i][j]["passenger_DM"] = current_passenger_DM + get_passenger_modifiers(destination_world, true);
+		var passenger_traffic_value = parseInt(destination_world.population_value, 16);
+		passenger_traffic_value += trade_map[i][j]["passenger_DM"];
+		trade_map[i][j]["Available_passengers"] = get_value_from_table("passenger_available_lots", lookup = passenger_traffic_value);
 	}
   }
   return trade_map;
@@ -303,6 +325,21 @@ function build_mail_table(trade_map) {
 	  if (mail_check >= 12) {
 		  document.write(`<tr><td>${jump}</td><td>${mail.name}</td><td>${base_mail_cost}</td></tr>`);
 	  }
+	}
+  }
+  document.write("</table>");
+}
+
+function build_passenger_table(trade_map) {
+  var trade_codes = get_trade_codes();
+  document.write("<table class='passenger_table'><tr><th style='width:20%'>World</th><th style='width:20%'>Jump</th><th style='width:20%'>Low Passengers</th><th style='width:20%'>Middle Passengers</th><th style='width:20%'>High Passengers</th></tr>");
+  for (const jump in trade_map) {
+	if (jump == 'world') { continue; }
+    for (const dest_world of trade_map[jump]) {
+      var low_passage = roll_dice(dest_world["Available_passengers"].Low);
+	  var mid_passage = roll_dice(dest_world["Available_passengers"].Middle);
+	  var high_passage = roll_dice(dest_world["Available_passengers"].High);
+      document.write(`<tr><td>${dest_world.name}</td><td>${jump}</td><td>${low_passage}</td><td>${mid_passage}</td><td>${high_passage}</td></tr>`);
 	}
   }
   document.write("</table>");
