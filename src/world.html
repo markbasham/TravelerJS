@@ -11,12 +11,16 @@
 
 <h1 id=title></h1>
 
+Jump: <input type="text" id="jump" value="Temp">
+<button type="button" onclick="window.location.href = window.location.toString().replace('?', '?jump='+document.getElementById('jump').value+'&')">Update Jump</button><br>
+
 <script>
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const world_name = urlParams.get('name');
 const world_code = urlParams.get('code');
 const jump_distance = urlParams.get('jump');
+document.getElementById("jump").value=jump_distance;
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
 
 const world = get_world_data(world_code);
@@ -33,7 +37,7 @@ document.write("<br>");
 
 build_freight_table(trade_map);
 
-document.write("<br>");
+document.write("<br>Mail Table<br>");
 
 build_mail_table(trade_map);
 
