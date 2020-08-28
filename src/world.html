@@ -13,6 +13,12 @@
 
 Jump: <input type="text" id="jump" value="Temp">
 <button type="button" onclick="window.location.href = window.location.toString().replace('?', '?jump='+document.getElementById('jump').value+'&')">Update Jump</button><br>
+ship_armed: <input type="text" id="ship_armed" value="Temp">
+<button type="button" onclick="window.location.href = window.location.toString().replace('?', '?ship_armed='+document.getElementById('ship_armed').value+'&')">Update ship_armed</button><br>
+NSFT_rank: <input type="text" id="NSFT_rank" value="Temp">
+<button type="button" onclick="window.location.href = window.location.toString().replace('?', '?NSFT_rank='+document.getElementById('NSFT_rank').value+'&')">Update NSFT_rank</button><br>
+social_standing_DM: <input type="text" id="social_standing_DM" value="Temp">
+<button type="button" onclick="window.location.href = window.location.toString().replace('?', '?social_standing_DM='+document.getElementById('social_standing_DM').value+'&')">Update social_standing_DM</button><br>
 
 <script>
 const queryString = window.location.search;
@@ -21,6 +27,12 @@ const world_name = urlParams.get('name');
 const world_code = urlParams.get('code');
 const jump_distance = urlParams.get('jump');
 document.getElementById("jump").value=jump_distance;
+const ship_armed = (urlParams.get('ship_armed')==null ? false : urlParams.get('ship_armed'));
+document.getElementById("ship_armed").value=ship_armed;
+const NSFT_rank = (urlParams.get('NSFT_rank')==null ? 0 : urlParams.get('NSFT_rank'));
+document.getElementById("NSFT_rank").value=NSFT_rank;
+const social_standing_DM = (urlParams.get('social_standing_DM')==null ? 0 : urlParams.get('social_standing_DM'));
+document.getElementById("social_standing_DM").value=social_standing_DM;
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
 
 const world = get_world_data(world_code);
@@ -31,7 +43,7 @@ const sector = create_jump_map(jump_distance, world_name);
 
 document.write("<br>");
 
-const trade_map = get_trade_map(sector, world_name, jump_distance);
+const trade_map = get_trade_map(sector, world_name, jump_distance, ship_armed,  parseInt(NSFT_rank),  parseInt(social_standing_DM));
 
 document.write("<br>");
 

@@ -152,7 +152,7 @@ function get_mail_modifiers(tech_level, freight_DM, ship_armed=false, NSFT_rank=
   return mail_DM;  
 }
 
-function get_trade_map(sector, world_name, jump) {
+function get_trade_map(sector, world_name, jump, ship_armed, NSFT_rank, social_standing_DM) {
   var world_pos = get_world_location(world_name, sector);
   var world_x = world_pos[0];
   var world_y = world_pos[1];	
@@ -174,7 +174,11 @@ function get_trade_map(sector, world_name, jump) {
 		trade_map[i][j]["Available_freight_lots"] = get_value_from_table("freight_available_lots", lookup = freight_traffic_value);
 		
 		// Set up the mail values
-		trade_map[i][j]["mail_DM"] = get_mail_modifiers(parseInt(world.tech_level_value,16), trade_map[i][j]["freight_DM"]);
+		trade_map[i][j]["mail_DM"] = get_mail_modifiers(parseInt(world.tech_level_value,16),
+		   trade_map[i][j]["freight_DM"],
+		   ship_armed=ship_armed,
+		   NSFT_rank=NSFT_rank,
+		   social_standing_DM=social_standing_DM);
 		
 		// Set up the freight information
 		trade_map[i][j]["passenger_DM"] = current_passenger_DM + get_passenger_modifiers(destination_world, true);
