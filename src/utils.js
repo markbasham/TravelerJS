@@ -366,7 +366,7 @@ function get_world_location(world_name, sector) {
 }  
 	
 	
-function create_jump_map(jump_drive, world_name) {
+function create_jump_map(jump_drive, world_name, ship_armed,  NSFT_rank, social_standing_DM) {
   const sector = get_sector('spinward_marches');
   var world_pos = get_world_location(world_name, sector);
   var world_x = world_pos[0];
@@ -384,7 +384,7 @@ function create_jump_map(jump_drive, world_name) {
 	var x = j-jump_drive+world_x;
 	var y = i-jump_drive+world_y;
 	if (full) {
-      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}"> ${sector[x][y]['name']} </a> </td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}"> ${sector[x][y]['name']} </a> </td>`);
 	} else {
 	  document.write(`<td class='sector_table_column' rowspan='1' align="center" valign="bottom" background='../images/Top.jpg'></td>`);
 	}
@@ -406,7 +406,7 @@ function create_jump_map(jump_drive, world_name) {
 	  if (jump_drive%2 == 0) {
 	    x = x+1;
 	  }
-      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}"> ${sector[x][y]['name']} </a> </td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}"> ${sector[x][y]['name']} </a> </td>`);
 	}
 	document.write("</tr>");
 	
@@ -417,7 +417,7 @@ function create_jump_map(jump_drive, world_name) {
 	  if (jump_drive%2 == 0) {
 	    x = x-1;
 	  }
-      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}"> ${sector[x][y]['name']} </a> </td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}"> ${sector[x][y]['name']} </a> </td>`);
 	}
 	document.write("</tr>");
   }

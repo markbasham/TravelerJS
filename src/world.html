@@ -29,9 +29,9 @@ const jump_distance = urlParams.get('jump');
 document.getElementById("jump").value=jump_distance;
 const ship_armed = (urlParams.get('ship_armed')==null ? false : urlParams.get('ship_armed'));
 document.getElementById("ship_armed").value=ship_armed;
-const NSFT_rank = (urlParams.get('NSFT_rank')==null ? 0 : urlParams.get('NSFT_rank'));
+const NSFT_rank = (urlParams.get('NSFT_rank')==null ? 0 : parseInt(urlParams.get('NSFT_rank')));
 document.getElementById("NSFT_rank").value=NSFT_rank;
-const social_standing_DM = (urlParams.get('social_standing_DM')==null ? 0 : urlParams.get('social_standing_DM'));
+const social_standing_DM = (urlParams.get('social_standing_DM')==null ? 0 : parseInt(urlParams.get('social_standing_DM')));
 document.getElementById("social_standing_DM").value=social_standing_DM;
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
 
@@ -39,11 +39,11 @@ const world = get_world_data(world_code);
 
 document.write("<br>");
 
-const sector = create_jump_map(jump_distance, world_name);
+const sector = create_jump_map(jump_distance, world_name, ship_armed,  NSFT_rank, social_standing_DM);
 
 document.write("<br>");
 
-const trade_map = get_trade_map(sector, world_name, jump_distance, ship_armed,  parseInt(NSFT_rank),  parseInt(social_standing_DM));
+const trade_map = get_trade_map(sector, world_name, jump_distance, ship_armed,  NSFT_rank, social_standing_DM);
 
 document.write("<br>");
 
