@@ -95,6 +95,12 @@ function get_jump_map() {
   return data;
 }
 
+function get_passenger_fees() {
+  var data_string = httpGet("../json/passenger_fees.json");
+  var data = JSON.parse(data_string);
+  return data;
+}
+
 function get_worlds_at_jump_range(sector, world_x, world_y, jump){
   var jump_map = get_jump_map();
   //document.write("<br>Jump "+jump.toString()+" : ");
@@ -334,16 +340,35 @@ function build_mail_table(trade_map) {
   document.write("</table>");
 }
 
+function get_number_of_special_passengers(number_of_passengers) {
+  var number_or_rolls = Math.floor(number_of_passengers/6);
+  if (number_of_passengers != 0 && number_or_rolls == 0) {
+	  number_or_rolls++;
+  }
+  var specials = 0;
+  var i;
+  for (i = 0; i < number_or_rolls; i++) {
+    if (roll_dice("D6") > 3) {
+	  specials++;
+	}
+  }
+  return specials;
+}
+
+
 function build_passenger_table(trade_map) {
   var trade_codes = get_trade_codes();
-  document.write("<table class='passenger_table'><tr><th style='width:20%'>World</th><th style='width:20%'>Jump</th><th style='width:20%'>Low Passengers</th><th style='width:20%'>Middle Passengers</th><th style='width:20%'>High Passengers</th></tr>");
+  document.write("<table class='passenger_table'><tr><th style='width:20%'>World</th><th style='width:20%'>Jump</th><th style='width:10%'>Low Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>Middle Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>High Passengers</th><th style='width:10%'>Fee per Passenger</th></tr>");
   for (const jump in trade_map) {
 	if (jump == 'world') { continue; }
     for (const dest_world of trade_map[jump]) {
       var low_passage = roll_dice(dest_world["Available_passengers"].Low);
 	  var mid_passage = roll_dice(dest_world["Available_passengers"].Middle);
 	  var high_passage = roll_dice(dest_world["Available_passengers"].High);
-      document.write(`<tr><td>${dest_world.name}</td><td>${jump}</td><td>${low_passage}</td><td>${mid_passage}</td><td>${high_passage}</td></tr>`);
+	  const mid_specials = get_number_of_special_passengers(mid_passage);
+	  const high_specials = get_number_of_special_passengers(high_passage);
+	  const passenger_fees = get_passenger_fees()[jump];
+      document.write(`<tr><td>${dest_world.name}</td><td>${jump}</td><td>${low_passage}</td><td>${passenger_fees['Low']}</td><td>${mid_passage}(${mid_specials})</td><td>${passenger_fees['Middle']}</td><td>${high_passage}(${high_specials})</td><td>${passenger_fees['High']}</td></tr>`);
 	}
   }
   document.write("</table>");
