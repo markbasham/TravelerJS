@@ -355,10 +355,21 @@ function get_number_of_special_passengers(number_of_passengers) {
   return specials;
 }
 
+function build_special_pasenger_list(quantity){
+  if (quantity == 0) {
+	  return "";
+  }
+  var i;
+  var result = get_value_from_table("random_passenger")["passenger"];
+  for (i = 1; i < quantity; i++) {
+    result += "<br>" + get_value_from_table("random_passenger")["passenger"];
+  }
+  return result;
+}
 
 function build_passenger_table(trade_map) {
   var trade_codes = get_trade_codes();
-  document.write("<table class='passenger_table'><tr><th style='width:20%'>World</th><th style='width:20%'>Jump</th><th style='width:10%'>Low Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>Middle Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>High Passengers</th><th style='width:10%'>Fee per Passenger</th></tr>");
+  document.write("<table class='passenger_table'><tr><th style='width:15%'>World</th><th style='width:5%'>Jump</th><th style='width:10%'>Low Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>Middle Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>High Passengers</th><th style='width:10%'>Fee per Passenger</th><th style='width:10%'>Middle Special Passengers</th><th style='width:10%'>High Special Passengers</th></tr>");
   for (const jump in trade_map) {
 	if (jump == 'world') { continue; }
     for (const dest_world of trade_map[jump]) {
@@ -368,7 +379,8 @@ function build_passenger_table(trade_map) {
 	  const mid_specials = get_number_of_special_passengers(mid_passage);
 	  const high_specials = get_number_of_special_passengers(high_passage);
 	  const passenger_fees = get_passenger_fees()[jump];
-      document.write(`<tr><td>${dest_world.name}</td><td>${jump}</td><td>${low_passage}</td><td>${passenger_fees['Low']}</td><td>${mid_passage}(${mid_specials})</td><td>${passenger_fees['Middle']}</td><td>${high_passage}(${high_specials})</td><td>${passenger_fees['High']}</td></tr>`);
+	  
+      document.write(`<tr><td>${dest_world.name}</td><td>${jump}</td><td>${low_passage}</td><td>${passenger_fees['Low']}</td><td>${mid_passage}(${mid_specials})</td><td>${passenger_fees['Middle']}</td><td>${high_passage}(${high_specials})</td><td>${passenger_fees['High']}</td><td>${build_special_pasenger_list(mid_specials)}</td><td>${build_special_pasenger_list(high_specials)}</td></tr>`);
 	}
   }
   document.write("</table>");
