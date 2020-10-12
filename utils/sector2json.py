@@ -3,6 +3,7 @@ import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("sector_file")
+parser.add_argument("output_file")
 parser.add_argument("--skip", type=int, default=42, help="the base")
 args = parser.parse_args()
 
@@ -41,5 +42,5 @@ for i in range(args.skip, len(sector_data)):
 	
 	print(worlds[world_x_loc][world_y_loc])
 
-with open('sector.json', 'w') as outfile:
+with open(args.output_file, 'w') as outfile:
     json.dump(worlds, outfile)
