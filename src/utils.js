@@ -158,7 +158,7 @@ function get_mail_modifiers(tech_level, freight_DM, ship_armed=false, NSFT_rank=
   return mail_DM;  
 }
 
-function get_trade_map(sector, world_name, jump, ship_armed, NSFT_rank, social_standing_DM) {
+function get_trade_map(sector, world_name, jump, ship_armed, NSFT_rank, social_standing_DM, carouse_DM) {
   var world_pos = get_world_location(world_name, sector);
   var world_x = world_pos[0];
   var world_y = world_pos[1];	
@@ -186,10 +186,13 @@ function get_trade_map(sector, world_name, jump, ship_armed, NSFT_rank, social_s
 		   NSFT_rank=NSFT_rank,
 		   social_standing_DM=social_standing_DM);
 		
-		// Set up the freight information
+		// Set up the passenger information
 		trade_map[i][j]["passenger_DM"] = current_passenger_DM + get_passenger_modifiers(destination_world, true);
 		var passenger_traffic_value = parseInt(destination_world.population_value, 16);
 		passenger_traffic_value += trade_map[i][j]["passenger_DM"];
+		// roll a carouse check
+		const carouse_roll = (roll_dice('2d6')+carouse_DM-8)/2;
+		passenger_traffic_value += carouse_roll;
 		trade_map[i][j]["Available_passengers"] = get_value_from_table("passenger_available_lots", lookup = passenger_traffic_value);
 	}
   }
@@ -403,7 +406,7 @@ function get_world_location(world_name, sector) {
 }  
 	
 	
-function create_jump_map(jump_drive, world_name, ship_armed,  NSFT_rank, social_standing_DM) {
+function create_jump_map(jump_drive, world_name, ship_armed,  NSFT_rank, social_standing_DM, carouse_DM) {
   const sector = get_sector('spinward_marches');
   var world_pos = get_world_location(world_name, sector);
   var world_x = world_pos[0];
@@ -421,7 +424,7 @@ function create_jump_map(jump_drive, world_name, ship_armed,  NSFT_rank, social_
 	var x = j-jump_drive+world_x;
 	var y = i-jump_drive+world_y;
 	if (full) {
-      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}"> ${sector[x][y]['name']} </a> </td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}&carouse_DM=${carouse_DM}"> ${sector[x][y]['name']} </a> </td>`);
 	} else {
 	  document.write(`<td class='sector_table_column' rowspan='1' align="center" valign="bottom" background='../images/Top.jpg'></td>`);
 	}
@@ -443,7 +446,7 @@ function create_jump_map(jump_drive, world_name, ship_armed,  NSFT_rank, social_
 	  if (jump_drive%2 == 0) {
 	    x = x+1;
 	  }
-      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}"> ${sector[x][y]['name']} </a> </td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}&carouse_DM=${carouse_DM}"> ${sector[x][y]['name']} </a> </td>`);
 	}
 	document.write("</tr>");
 	
@@ -454,7 +457,7 @@ function create_jump_map(jump_drive, world_name, ship_armed,  NSFT_rank, social_
 	  if (jump_drive%2 == 0) {
 	    x = x-1;
 	  }
-      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}"> ${sector[x][y]['name']} </a> </td>`);
+      document.write(`<td class='sector_table_column' rowspan="2" background="${sector[x][y]['image']}"> <div class="startport_text">${sector[x][y]['code'].substring(0, 1)}</div> <br> <a class="world_link"  href="world.html?name=${sector[x][y]['name']}&code=${sector[x][y]['code']}&jump=${jump_drive}&ship_armed=${ship_armed}&NSFT_rank=${NSFT_rank}&social_standing_DM=${social_standing_DM}&carouse_DM=${carouse_DM}"> ${sector[x][y]['name']} </a> </td>`);
 	}
 	document.write("</tr>");
   }

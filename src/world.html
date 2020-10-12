@@ -19,6 +19,8 @@ NSFT_rank: <input type="text" id="NSFT_rank" value="Temp">
 <button type="button" onclick="window.location.href = window.location.toString().replace('?', '?NSFT_rank='+document.getElementById('NSFT_rank').value+'&')">Update NSFT_rank</button><br>
 social_standing_DM: <input type="text" id="social_standing_DM" value="Temp">
 <button type="button" onclick="window.location.href = window.location.toString().replace('?', '?social_standing_DM='+document.getElementById('social_standing_DM').value+'&')">Update social_standing_DM</button><br>
+carouse_DM: <input type="text" id="carouse_DM" value="Temp">
+<button type="button" onclick="window.location.href = window.location.toString().replace('?', '?carouse_DM='+document.getElementById('carouse_DM').value+'&')">Update carouse_DM</button><br>
 
 <script>
 const queryString = window.location.search;
@@ -33,17 +35,20 @@ const NSFT_rank = (urlParams.get('NSFT_rank')==null ? 0 : parseInt(urlParams.get
 document.getElementById("NSFT_rank").value=NSFT_rank;
 const social_standing_DM = (urlParams.get('social_standing_DM')==null ? 0 : parseInt(urlParams.get('social_standing_DM')));
 document.getElementById("social_standing_DM").value=social_standing_DM;
+const carouse_DM = (urlParams.get('carouse_DM')==null ? 0 : parseInt(urlParams.get('carouse_DM')));
+document.getElementById("carouse_DM").value=carouse_DM;
+
 document.getElementById("title").innerHTML=world_name + " : " + world_code;
 
 const world = get_world_data(world_code);
 
 document.write("<br>");
 
-const sector = create_jump_map(jump_distance, world_name, ship_armed,  NSFT_rank, social_standing_DM);
+const sector = create_jump_map(jump_distance, world_name, ship_armed,  NSFT_rank, social_standing_DM, carouse_DM);
 
 document.write("<br>");
 
-const trade_map = get_trade_map(sector, world_name, jump_distance, ship_armed,  NSFT_rank, social_standing_DM);
+const trade_map = get_trade_map(sector, world_name, jump_distance, ship_armed,  NSFT_rank, social_standing_DM, carouse_DM);
 
 document.write("<br>");
 
